@@ -57,23 +57,6 @@ class _CardSettingPageState extends State<CardSettingPage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                Expanded(
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.vertical(
-                                      top: Radius.circular(12),
-                                    ),
-                                    child: card.path.isNotEmpty
-                                        ? Image.asset(
-                                            card.path,
-                                            fit: BoxFit.cover,
-                                          )
-                                        : const Image(
-                                            image: AssetImage(
-                                                'assets/images/lixi.jpg'),
-                                            fit: BoxFit.cover,
-                                          ),
-                                  ),
-                                ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Column(
@@ -93,6 +76,16 @@ class _CardSettingPageState extends State<CardSettingPage> {
                                         style: const TextStyle(
                                           color: Colors.grey,
                                           fontSize: 14,
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible: card.isFlip,
+                                        child: Text(
+                                          'Đã mở',
+                                          style: const TextStyle(
+                                            color: Colors.green,
+                                            fontSize: 14,
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -213,9 +206,6 @@ class _CardSettingPageState extends State<CardSettingPage> {
 
   Future<void> _saveCard() async {
     if (_formKey.currentState!.validate()) {
-      // Kiểm tra điều kiện giftTypes.name = 'LuckyWheel' và effects.name = 'Flip'
-      print(_selectedGift!.name);
-      print(_selectedGift!.name);
       if (_selectedGift!.name == 'LuckyWheel' && _selectedEffect != '1') {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(

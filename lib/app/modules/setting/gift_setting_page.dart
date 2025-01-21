@@ -19,9 +19,8 @@ class _GiftSettingPageState extends State<GiftSettingPage> {
   }
 
   // Hàm cập nhật thông tin món quà
-  void _updateGift(Gift gift, String name, int quantity, double probability) {
+  void _updateGift(Gift gift, int quantity, double probability) {
     setState(() {
-      gift.name = name;
       gift.quantity = quantity;
       gift.probability = probability;
       gift.save(); // Lưu lại vào Hive
@@ -77,7 +76,6 @@ class _GiftSettingPageState extends State<GiftSettingPage> {
 
   // Hàm hiển thị dialog để chỉnh sửa
   Future<void> _showEditDialog(Gift gift) async {
-    TextEditingController nameController = TextEditingController(text: gift.name);
     TextEditingController quantityController = TextEditingController(text: gift.quantity.toString());
     TextEditingController probabilityController = TextEditingController(text: gift.probability.toString());
 
@@ -91,14 +89,6 @@ class _GiftSettingPageState extends State<GiftSettingPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                TextFormField(
-                  controller: nameController,
-                  decoration: InputDecoration(
-                    labelText: 'Gift Name',
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-                  ),
-                ),
-                const SizedBox(height: 16),
                 TextFormField(
                   controller: quantityController,
                   keyboardType: TextInputType.number,
@@ -130,11 +120,10 @@ class _GiftSettingPageState extends State<GiftSettingPage> {
             ElevatedButton(
               onPressed: () {
                 // Cập nhật quà tặng
-                String name = nameController.text;
                 int quantity = int.tryParse(quantityController.text) ?? gift.quantity;
                 double probability = double.tryParse(probabilityController.text) ?? gift.probability;
 
-                _updateGift(gift, name, quantity, probability);
+                _updateGift(gift, quantity, probability);
 
                 Navigator.pop(context); // Đóng dialog
               },

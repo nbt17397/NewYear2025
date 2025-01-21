@@ -10,6 +10,7 @@ import 'package:lucky2025/app/modules/lucky_wheel/lucky_wheel_page.dart';
 import 'package:lucky2025/app/modules/setting/setting_page.dart';
 import 'package:pinput/pinput.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:scratcher/scratcher.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -157,7 +158,7 @@ class _HomePageState extends State<HomePage> {
         speed: 5000,
         flipOnTouch: !item.isFlip,
         onFlipDone: (bool isSuccess) async {
-          if (item.name == 'LuckyWheel') {
+          if (item.name == 'Vòng quay') {
             print("LuckyWheel");
             showDialog(
               context: context,
@@ -191,7 +192,8 @@ class _HomePageState extends State<HomePage> {
                           Navigator.push(
                             context,
                             CupertinoPageRoute(
-                                builder: (context) => const LuckyWheelPage()),
+                                builder: (context) =>
+                                    const LuckyWheelPage(initialValue: 1)),
                           );
                         },
                         child: const Text(
@@ -224,6 +226,9 @@ class _HomePageState extends State<HomePage> {
               break;
             case 3:
               _beforeAfter(item, false);
+              break;
+            case 4:
+              showScratcherDialog(item);
               break;
             default:
           }
@@ -322,6 +327,37 @@ class _HomePageState extends State<HomePage> {
               temp: isCountdown ? 4 : 0,
             )
           ],
+        );
+      },
+    );
+  }
+
+  void showScratcherDialog(CardModel item) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.transparent,
+          content: SizedBox(
+            width: MediaQuery.of(context).size.width * .95,
+            height: MediaQuery.of(context).size.height * .8,
+            child: Scratcher(
+              brushSize: 50,
+              threshold: 30,
+              image: Image.asset('assets/images/lixi.png'),
+              onChange: (value) {
+                print("Scratch progress: $value%");
+              },
+              onThreshold: () {
+                print("Threshold reached, reveal prize!");
+              },
+              child: Container(
+                color: Colors.blue,
+                alignment: Alignment.center,
+                child: Image.asset(item.path, fit: BoxFit.cover),
+              ),
+            ),
+          ),
         );
       },
     );

@@ -19,7 +19,7 @@ void main() async {
 
   if (giftBox.isEmpty) {
     List<Gift> defaultGifts = List.generate(
-      12,
+      10,
       (index) => Gift(
         name: itemWheels[index].name,
         quantity: 0,
@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'LuckyWheel',
+      title: 'LuckyWheel 2025',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,

@@ -39,6 +39,9 @@ class _LuckyWheelPageState extends State<LuckyWheelPage>
               selectedGift.name == 'Thêm 2 lượt vào năm sau') {
             showScratcherDialog(selectedGift.name);
           }
+          if (selectedGift.name == '500k') {
+            show500kDialog();
+          }
         } else {
           print("Không tìm thấy quà cho kết quả này.");
         }
@@ -195,6 +198,28 @@ class _LuckyWheelPageState extends State<LuckyWheelPage>
                 ),
               ),
             ),
+          ),
+        );
+      },
+    );
+  }
+
+  void show500kDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.transparent,
+          content: SizedBox(
+            width: MediaQuery.of(context).size.width * .65,
+            height: MediaQuery.of(context).size.height * .6,
+            child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(color: Colors.blueAccent, width: 4.0),
+                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                ),
+                child: Image.asset('assets/images/500k.png')),
           ),
         );
       },

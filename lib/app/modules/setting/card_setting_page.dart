@@ -206,10 +206,10 @@ class _CardSettingPageState extends State<CardSettingPage> {
 
   Future<void> _saveCard() async {
     if (_formKey.currentState!.validate()) {
-      if (_selectedGift!.name == 'LuckyWheel' && _selectedEffect != '1') {
+      if (_selectedGift!.name == 'Vòng quay' && _selectedEffect != '1') {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Effect must be "Flip" for "LuckyWheel"!'),
+            content: Text('Effect must be "Flip" for "Vòng quay"!'),
             backgroundColor: Colors.red,
           ),
         );
